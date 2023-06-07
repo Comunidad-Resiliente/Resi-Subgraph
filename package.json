@@ -1,0 +1,8 @@
+{
+  "name": "Resi-Subgraph",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Comunidad-Resiliente/Resi-Subgraph.git",
+  "author": "AlejoLovallo <alejoe.lovallo@gmail.com>",
+  "license": "MIT"
+}
