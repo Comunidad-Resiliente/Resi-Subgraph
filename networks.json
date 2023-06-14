@@ -1,0 +1,11 @@
+{
+  "mumbai": {
+    "ResiToken": {
+      "address": "0xF351Cf812bc28589C89C7290a228009b1B6ed320",
+      "startBlock": 36818438
+    },
+    "ResiRegistry": {
+      "address": "0x6A8Addb101AC4Be0a1d15677a384059478032C71"
+    }
+  }
+}

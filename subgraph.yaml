@@ -1,0 +1,121 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ResiToken
+    network: mumbai
+    source:
+      address: "0xF351Cf812bc28589C89C7290a228009b1B6ed320"
+      abi: ResiToken
+      startBlock: 36818438
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - Exit
+        - Initialized
+        - MentorAdded
+        - Paused
+        - ProjectBuilderAdded
+        - ResiBuilderAdded
+        - ResiBurnt
+        - ResiMinted
+        - ResiRoleRemoved
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - TokenInitialized
+        - Transfer
+        - Unpaused
+      abis:
+        - name: ResiToken
+          file: ./abis/ResiToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Exit(indexed address,uint256,uint256)
+          handler: handleExit
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: MentorAdded(indexed address,bytes32)
+          handler: handleMentorAdded
+        - event: Paused(address)
+          handler: handlePaused
+        - event: ProjectBuilderAdded(indexed address)
+          handler: handleProjectBuilderAdded
+        - event: ResiBuilderAdded(indexed address)
+          handler: handleResiBuilderAdded
+        - event: ResiBurnt(indexed address,uint256)
+          handler: handleResiBurnt
+        - event: ResiMinted(indexed address,uint256)
+          handler: handleResiMinted
+        - event: ResiRoleRemoved(bytes32,indexed address)
+          handler: handleResiRoleRemoved
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: TokenInitialized(indexed address,indexed address)
+          handler: handleTokenInitialized
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/resi-token.ts
+  - kind: ethereum
+    name: ResiRegistry
+    network: mumbai
+    source:
+      address: "0x6A8Addb101AC4Be0a1d15677a384059478032C71"
+      abi: ResiRegistry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ResiRegistryInitialized
+        - OwnershipTransferred
+        - ProjectAdded
+        - ProjectDisabled
+        - RegistryInitialized
+        - ResiTokenSet
+        - SerieClosed
+        - SerieCreated
+        - SerieSBTSet
+        - SerieSupplyUpdated
+        - TreasuryVaultSet
+        - WithdrawFromVault
+      abis:
+        - name: ResiRegistry
+          file: ./abis/ResiRegistry.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProjectAdded(bytes32,uint256)
+          handler: handleProjectAdded
+        - event: ProjectDisabled(bytes32)
+          handler: handleProjectDisabled
+        - event: RegistryInitialized()
+          handler: handleRegistryInitialized
+        - event: ResiTokenSet(indexed address)
+          handler: handleResiTokenSet
+        - event: SerieClosed(uint256)
+          handler: handleSerieClosed
+        - event: SerieCreated(uint256,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSerieCreated
+        - event: SerieSBTSet(uint256,indexed address)
+          handler: handleSerieSBTSet
+        - event: SerieSupplyUpdated(uint256,uint256)
+          handler: handleSerieSupplyUpdated
+        - event: TreasuryVaultSet(indexed address)
+          handler: handleTreasuryVaultSet
+        - event: WithdrawFromVault(uint256,uint256,indexed address)
+          handler: handleWithdrawFromVault
+      file: ./src/resi-registry.ts
