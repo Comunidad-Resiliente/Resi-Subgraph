@@ -1,7 +1,5 @@
 import {
-  Approval as ApprovalEvent,
   Exit as ExitEvent,
-  Initialized as InitializedEvent,
   MentorAdded as MentorAddedEvent,
   Paused as PausedEvent,
   ProjectBuilderAdded as ProjectBuilderAddedEvent,
@@ -13,13 +11,10 @@ import {
   RoleGranted as RoleGrantedEvent,
   RoleRevoked as RoleRevokedEvent,
   TokenInitialized as TokenInitializedEvent,
-  Transfer as TransferEvent,
   Unpaused as UnpausedEvent
 } from "../generated/ResiToken/ResiToken"
 import {
-  Approval,
   Exit,
-  Initialized,
   MentorAdded,
   Paused,
   ProjectBuilderAdded,
@@ -31,24 +26,8 @@ import {
   RoleGranted,
   RoleRevoked,
   TokenInitialized,
-  Transfer,
   Unpaused
 } from "../generated/schema"
-
-export function handleApproval(event: ApprovalEvent): void {
-  let entity = new Approval(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.owner = event.params.owner
-  entity.spender = event.params.spender
-  entity.value = event.params.value
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
 
 export function handleExit(event: ExitEvent): void {
   let entity = new Exit(
@@ -57,19 +36,6 @@ export function handleExit(event: ExitEvent): void {
   entity.account = event.params.account
   entity._amount = event.params._amount
   entity._serieId = event.params._serieId
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleInitialized(event: InitializedEvent): void {
-  let entity = new Initialized(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.version = event.params.version
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -226,21 +192,6 @@ export function handleTokenInitialized(event: TokenInitializedEvent): void {
   )
   entity.treasury = event.params.treasury
   entity.registry = event.params.registry
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleTransfer(event: TransferEvent): void {
-  let entity = new Transfer(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.from = event.params.from
-  entity.to = event.params.to
-  entity.value = event.params.value
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

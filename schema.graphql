@@ -1,26 +1,252 @@
-type Approval @entity(immutable: true) {
+type Initialized @entity(immutable: true) {
   id: Bytes!
-  owner: Bytes! # address
-  spender: Bytes! # address
-  value: BigInt! # uint256
+  version: Int! # uint8
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProjectAdded @entity(immutable: true) {
+  id: Bytes!
+  _name: Bytes! # bytes32
+  serieId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProjectDisabled @entity(immutable: true) {
+  id: Bytes!
+  _name: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RegistryInitialized @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ResiTokenSet @entity(immutable: true) {
+  id: Bytes!
+  _resiToken: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SerieClosed @entity(immutable: true) {
+  id: Bytes!
+  _id: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SerieCreated @entity(immutable: true) {
+  id: Bytes!
+  _id: BigInt! # uint256
+  _startDate: BigInt! # uint256
+  _endDate: BigInt! # uint256
+  _numberOfProjects: BigInt! # uint256
+  _maxSupply: BigInt! # uint256
+  _vault: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SerieSBTSet @entity(immutable: true) {
+  id: Bytes!
+  activeSerieId: BigInt! # uint256
+  _sbt: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SerieSupplyUpdated @entity(immutable: true) {
+  id: Bytes!
+  oldSupply: BigInt! # uint256
+  newSupply: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TreasuryVaultSet @entity(immutable: true) {
+  id: Bytes!
+  _treasuryVault: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type WithdrawFromVault @entity(immutable: true) {
+  id: Bytes!
+  _serieId: BigInt! # uint256
+  _amount: BigInt! # uint256
+  _to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ApprovalForAll @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ContractURIUpdated @entity(immutable: true) {
+  id: Bytes!
+  contractUri: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type DecreaseResiBalance @entity(immutable: true) {
+  id: Bytes!
+  to: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type DefaultRoleUriUpdated @entity(immutable: true) {
+  id: Bytes!
+  oldUri: String! # string
+  newUri: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IncreaseResiBalance @entity(immutable: true) {
+  id: Bytes!
+  to: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Locked @entity(immutable: true) {
+  id: Bytes!
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MintSBT @entity(immutable: true) {
+  id: Bytes!
+  _to: Bytes! # address
+  _role: Bytes! # bytes32
+  _tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NicknameUpdated @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  nickname: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ResiSBTOwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RegistrySet @entity(immutable: true) {
+  id: Bytes!
+  _registry: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ResiSBTInitialized @entity(immutable: true) {
+  id: Bytes!
+  _name: String! # string
+  _symbol: String! # string
+  _serieId: BigInt! # uint256
+  _registry: Bytes! # address
+  _resiToken: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SBTMintedByResiToken @entity(immutable: true) {
+  id: Bytes!
+  _to: Bytes! # address
+  _role: Bytes! # bytes32
+  _tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unlocked @entity(immutable: true) {
+  id: Bytes!
+  tokenId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
 type Exit @entity(immutable: true) {
   id: Bytes!
   account: Bytes! # address
   _amount: BigInt! # uint256
   _serieId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Initialized @entity(immutable: true) {
-  id: Bytes!
-  version: Int! # uint8
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -125,16 +351,6 @@ type TokenInitialized @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type Transfer @entity(immutable: true) {
-  id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  value: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type Unpaused @entity(immutable: true) {
   id: Bytes!
   account: Bytes! # address
@@ -142,108 +358,56 @@ type Unpaused @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
-type ResiRegistryInitialized @entity(immutable: true) {
+type EtherReceived @entity(immutable: true) {
   id: Bytes!
-  version: Int! # uint8
+  _from: Bytes! # address
+  _value: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type OwnershipTransferred @entity(immutable: true) {
+type MainTokenUpdated @entity(immutable: true) {
   id: Bytes!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
+  oldToken: Bytes! # address
+  TOKEN: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type ProjectAdded @entity(immutable: true) {
+type ResiVaultInitialized @entity(immutable: true) {
   id: Bytes!
-  _name: Bytes! # bytes32
-  serieId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type ProjectDisabled @entity(immutable: true) {
-  id: Bytes!
-  _name: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type RegistryInitialized @entity(immutable: true) {
-  id: Bytes!
-
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type ResiTokenSet @entity(immutable: true) {
-  id: Bytes!
+  _serieId: BigInt! # uint256
+  _token: Bytes! # address
   _resiToken: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type SerieClosed @entity(immutable: true) {
+type TokenAdded @entity(immutable: true) {
   id: Bytes!
-  _id: BigInt! # uint256
+  _name: Bytes! # bytes32
+  _token: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type SerieCreated @entity(immutable: true) {
+type TokenReleased @entity(immutable: true) {
   id: Bytes!
-  _id: BigInt! # uint256
-  _startDate: BigInt! # uint256
-  _endDate: BigInt! # uint256
-  _numberOfProjects: BigInt! # uint256
-  _maxSupply: BigInt! # uint256
-  _vault: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SerieSBTSet @entity(immutable: true) {
-  id: Bytes!
-  activeSerieId: BigInt! # uint256
-  _sbt: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SerieSupplyUpdated @entity(immutable: true) {
-  id: Bytes!
-  oldSupply: BigInt! # uint256
-  newSupply: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type TreasuryVaultSet @entity(immutable: true) {
-  id: Bytes!
-  _treasuryVault: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type WithdrawFromVault @entity(immutable: true) {
-  id: Bytes!
-  _serieId: BigInt! # uint256
+  TOKEN: Bytes! # address
   _amount: BigInt! # uint256
-  _to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TokenRemoved @entity(immutable: true) {
+  id: Bytes!
+  _name: Bytes! # bytes32
+  _token: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

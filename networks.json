@@ -1,11 +1,17 @@
 {
-  "mumbai": {
-    "ResiToken": {
-      "address": "0xF351Cf812bc28589C89C7290a228009b1B6ed320",
-      "startBlock": 36818438
-    },
-    "ResiRegistry": {
-      "address": "0x6A8Addb101AC4Be0a1d15677a384059478032C71"
+    "mumbai": {
+      "ResiRegistry": {
+        "address": "0x3a61443A9667DEdF9f56B105a59aa208fccf1F2a",
+        "startBlock": 38003556
+      },
+      "ResiSBT": {
+        "address": "0xa06Dd136C12567578d5C9099CCa8D7ab38BbAbCc"
+      },
+      "ResiToken": {
+        "address": "0x4a53AAD4fE18CC63DdDf3c2187f27Ce8A69d1E45"
+      },
+      "ResiVault": {
+        "address": "0xABA78E2AF5574faD41A2DD30d952aFD225755BB2"
+      }
     }
   }
-}

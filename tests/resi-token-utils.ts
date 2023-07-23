@@ -1,9 +1,7 @@
 import { newMockEvent } from "matchstick-as"
 import { ethereum, Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
 import {
-  Approval,
   Exit,
-  Initialized,
   MentorAdded,
   Paused,
   ProjectBuilderAdded,
@@ -15,31 +13,8 @@ import {
   RoleGranted,
   RoleRevoked,
   TokenInitialized,
-  Transfer,
   Unpaused
 } from "../generated/ResiToken/ResiToken"
-
-export function createApprovalEvent(
-  owner: Address,
-  spender: Address,
-  value: BigInt
-): Approval {
-  let approvalEvent = changetype<Approval>(newMockEvent())
-
-  approvalEvent.parameters = new Array()
-
-  approvalEvent.parameters.push(
-    new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
-  )
-  approvalEvent.parameters.push(
-    new ethereum.EventParam("spender", ethereum.Value.fromAddress(spender))
-  )
-  approvalEvent.parameters.push(
-    new ethereum.EventParam("value", ethereum.Value.fromUnsignedBigInt(value))
-  )
-
-  return approvalEvent
-}
 
 export function createExitEvent(
   account: Address,
@@ -67,21 +42,6 @@ export function createExitEvent(
   )
 
   return exitEvent
-}
-
-export function createInitializedEvent(version: i32): Initialized {
-  let initializedEvent = changetype<Initialized>(newMockEvent())
-
-  initializedEvent.parameters = new Array()
-
-  initializedEvent.parameters.push(
-    new ethereum.EventParam(
-      "version",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(version))
-    )
-  )
-
-  return initializedEvent
 }
 
 export function createMentorAddedEvent(
@@ -290,28 +250,6 @@ export function createTokenInitializedEvent(
   )
 
   return tokenInitializedEvent
-}
-
-export function createTransferEvent(
-  from: Address,
-  to: Address,
-  value: BigInt
-): Transfer {
-  let transferEvent = changetype<Transfer>(newMockEvent())
-
-  transferEvent.parameters = new Array()
-
-  transferEvent.parameters.push(
-    new ethereum.EventParam("from", ethereum.Value.fromAddress(from))
-  )
-  transferEvent.parameters.push(
-    new ethereum.EventParam("to", ethereum.Value.fromAddress(to))
-  )
-  transferEvent.parameters.push(
-    new ethereum.EventParam("value", ethereum.Value.fromUnsignedBigInt(value))
-  )
-
-  return transferEvent
 }
 
 export function createUnpausedEvent(account: Address): Unpaused {

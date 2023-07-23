@@ -17,5 +17,16 @@
     "@graphprotocol/graph-cli": "0.51.1",
     "@graphprotocol/graph-ts": "0.30.0"
   },
-  "devDependencies": { "matchstick-as": "0.5.0" }
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^5.0.0",
+    "matchstick-as": "0.5.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": "v18"
+  }
 }
