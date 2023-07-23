@@ -7,23 +7,23 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
-import { Exit } from "../generated/schema"
-import { Exit as ExitEvent } from "../generated/ResiToken/ResiToken"
-import { handleExit } from "../src/resi-token"
-import { createExitEvent } from "./resi-token-utils"
+import { Approval } from "../generated/schema"
+import { Approval as ApprovalEvent } from "../generated/ResiSBT/ResiSBT"
+import { handleApproval } from "../src/resi-sbt"
+import { createApprovalEvent } from "./resi-sbt-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
-    let account = Address.fromString(
+    let owner = Address.fromString("0x0000000000000000000000000000000000000001")
+    let approved = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     )
-    let _amount = BigInt.fromI32(234)
-    let _serieId = BigInt.fromI32(234)
-    let newExitEvent = createExitEvent(account, _amount, _serieId)
-    handleExit(newExitEvent)
+    let tokenId = BigInt.fromI32(234)
+    let newApprovalEvent = createApprovalEvent(owner, approved, tokenId)
+    handleApproval(newApprovalEvent)
   })
 
   afterAll(() => {
@@ -33,26 +33,26 @@ describe("Describe entity assertions", () => {
   // For more test scenarios, see:
   // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
 
-  test("Exit created and stored", () => {
-    assert.entityCount("Exit", 1)
+  test("Approval created and stored", () => {
+    assert.entityCount("Approval", 1)
 
     // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
     assert.fieldEquals(
-      "Exit",
+      "Approval",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "account",
+      "owner",
       "0x0000000000000000000000000000000000000001"
     )
     assert.fieldEquals(
-      "Exit",
+      "Approval",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "_amount",
-      "234"
+      "approved",
+      "0x0000000000000000000000000000000000000001"
     )
     assert.fieldEquals(
-      "Exit",
+      "Approval",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "_serieId",
+      "tokenId",
       "234"
     )
 
