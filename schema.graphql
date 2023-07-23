@@ -412,3 +412,19 @@ type TokenRemoved @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+
+type Mentor @entity(immutable: false){
+  id: Bytes!
+  serie: Int!
+  project: String!
+}
+
+type Project @entity(immutable: false){
+  id: Bytes!
+  active: Boolean!
+}
+
+type Serie @entity(immutable: false){
+  
+}
