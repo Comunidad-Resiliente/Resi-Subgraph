@@ -426,5 +426,24 @@ type Project @entity(immutable: false){
 }
 
 type Serie @entity(immutable: false){
-  
+  id: Bytes!
+  active: Boolean!
+  created: Boolean!
+  serieId: BigInt!
+  startDate: String!
+  endDate: String!
+  currentProjects: Int!
+  numberOfProjects: Int!
+  currentSupply: BigInt!
+  maxSupply: BigInt!
+  vault: Vault
 }
+
+type Vault @entity(immutable: false){
+  id: Bytes!
+  serieId: Int!
+  token: String!
+  resiToken: String!
+  resiRegistry: String!
+}
+

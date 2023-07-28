@@ -11,7 +11,7 @@ import {
   SerieSupplyUpdated as SerieSupplyUpdatedEvent,
   TreasuryVaultSet as TreasuryVaultSetEvent,
   WithdrawFromVault as WithdrawFromVaultEvent
-} from "../generated/ResiRegistry/ResiRegistry"
+} from '../generated/ResiRegistry/ResiRegistry'
 import {
   Initialized,
   OwnershipTransferred,
@@ -25,12 +25,10 @@ import {
   SerieSupplyUpdated,
   TreasuryVaultSet,
   WithdrawFromVault
-} from "../generated/schema"
+} from '../generated/schema'
 
 export function handleInitialized(event: InitializedEvent): void {
-  let entity = new Initialized(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new Initialized(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity.version = event.params.version
 
   entity.blockNumber = event.block.number
@@ -40,12 +38,8 @@ export function handleInitialized(event: InitializedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
-): void {
-  let entity = new OwnershipTransferred(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+export function handleOwnershipTransferred(event: OwnershipTransferredEvent): void {
+  let entity = new OwnershipTransferred(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity.previousOwner = event.params.previousOwner
   entity.newOwner = event.params.newOwner
 
@@ -57,9 +51,7 @@ export function handleOwnershipTransferred(
 }
 
 export function handleProjectAdded(event: ProjectAddedEvent): void {
-  let entity = new ProjectAdded(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new ProjectAdded(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._name = event.params._name
   entity.serieId = event.params.serieId
 
@@ -71,9 +63,7 @@ export function handleProjectAdded(event: ProjectAddedEvent): void {
 }
 
 export function handleProjectDisabled(event: ProjectDisabledEvent): void {
-  let entity = new ProjectDisabled(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new ProjectDisabled(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._name = event.params._name
 
   entity.blockNumber = event.block.number
@@ -83,12 +73,8 @@ export function handleProjectDisabled(event: ProjectDisabledEvent): void {
   entity.save()
 }
 
-export function handleRegistryInitialized(
-  event: RegistryInitializedEvent
-): void {
-  let entity = new RegistryInitialized(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+export function handleRegistryInitialized(event: RegistryInitializedEvent): void {
+  let entity = new RegistryInitialized(event.transaction.hash.concatI32(event.logIndex.toI32()))
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -98,9 +84,7 @@ export function handleRegistryInitialized(
 }
 
 export function handleResiTokenSet(event: ResiTokenSetEvent): void {
-  let entity = new ResiTokenSet(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new ResiTokenSet(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._resiToken = event.params._resiToken
 
   entity.blockNumber = event.block.number
@@ -111,9 +95,7 @@ export function handleResiTokenSet(event: ResiTokenSetEvent): void {
 }
 
 export function handleSerieClosed(event: SerieClosedEvent): void {
-  let entity = new SerieClosed(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new SerieClosed(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._id = event.params._id
 
   entity.blockNumber = event.block.number
@@ -124,9 +106,7 @@ export function handleSerieClosed(event: SerieClosedEvent): void {
 }
 
 export function handleSerieCreated(event: SerieCreatedEvent): void {
-  let entity = new SerieCreated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new SerieCreated(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._id = event.params._id
   entity._startDate = event.params._startDate
   entity._endDate = event.params._endDate
@@ -142,9 +122,7 @@ export function handleSerieCreated(event: SerieCreatedEvent): void {
 }
 
 export function handleSerieSBTSet(event: SerieSBTSetEvent): void {
-  let entity = new SerieSBTSet(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new SerieSBTSet(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity.activeSerieId = event.params.activeSerieId
   entity._sbt = event.params._sbt
 
@@ -156,9 +134,7 @@ export function handleSerieSBTSet(event: SerieSBTSetEvent): void {
 }
 
 export function handleSerieSupplyUpdated(event: SerieSupplyUpdatedEvent): void {
-  let entity = new SerieSupplyUpdated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new SerieSupplyUpdated(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity.oldSupply = event.params.oldSupply
   entity.newSupply = event.params.newSupply
 
@@ -170,9 +146,7 @@ export function handleSerieSupplyUpdated(event: SerieSupplyUpdatedEvent): void {
 }
 
 export function handleTreasuryVaultSet(event: TreasuryVaultSetEvent): void {
-  let entity = new TreasuryVaultSet(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new TreasuryVaultSet(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._treasuryVault = event.params._treasuryVault
 
   entity.blockNumber = event.block.number
@@ -183,9 +157,7 @@ export function handleTreasuryVaultSet(event: TreasuryVaultSetEvent): void {
 }
 
 export function handleWithdrawFromVault(event: WithdrawFromVaultEvent): void {
-  let entity = new WithdrawFromVault(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new WithdrawFromVault(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._serieId = event.params._serieId
   entity._amount = event.params._amount
   entity._to = event.params._to
