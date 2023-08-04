@@ -413,23 +413,12 @@ type TokenRemoved @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-
-type Mentor @entity(immutable: false){
-  id: Bytes!
-  serie: Int!
-  project: String!
-}
-
-type Project @entity(immutable: false){
-  id: Bytes!
-  active: Boolean!
-}
+######################## START OF CUSTOM TYPES ########################
 
 type Serie @entity(immutable: false){
-  id: Bytes!
+  id: String!
   active: Boolean!
   created: Boolean!
-  serieId: BigInt!
   startDate: String!
   endDate: String!
   currentProjects: Int!
@@ -437,6 +426,20 @@ type Serie @entity(immutable: false){
   currentSupply: BigInt!
   maxSupply: BigInt!
   vault: Vault
+  projects: [Project!]! @derivedFrom(field: "serie")
+}
+
+type Project @entity(immutable: false){
+  id: Bytes!
+  name: String!
+  active: Boolean!
+  serie: Serie!
+}
+
+type Mentor @entity(immutable: false){
+  id: Bytes!
+  serie: Int!
+  project: String!
 }
 
 type Vault @entity(immutable: false){

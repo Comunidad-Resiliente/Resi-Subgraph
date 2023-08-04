@@ -1,3 +1,4 @@
+import {BigInt} from '@graphprotocol/graph-ts'
 import {
   Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
@@ -24,7 +25,9 @@ import {
   SerieSBTSet,
   SerieSupplyUpdated,
   TreasuryVaultSet,
-  WithdrawFromVault
+  WithdrawFromVault,
+  Serie,
+  Project
 } from '../generated/schema'
 
 export function handleInitialized(event: InitializedEvent): void {
@@ -50,16 +53,29 @@ export function handleOwnershipTransferred(event: OwnershipTransferredEvent): vo
   entity.save()
 }
 
+export function handleSerieCreated(event: SerieCreatedEvent): void {
+  /*const serie = new Serie(event.transaction.hash)
+  serie.active = true
+  serie.created = true
+  serie.serieId = event.params._id
+  serie.startDate = event.params._startDate.toString()
+  serie.endDate = event.params._endDate.toString()
+  serie.currentProjects = 0
+  serie.numberOfProjects = 0
+  serie.currentSupply = new BigInt(0)
+  serie.maxSupply = event.params._maxSupply
+  serie.vault = event.params._vault
+
+  serie.save()*/
+}
+
 export function handleProjectAdded(event: ProjectAddedEvent): void {
-  let entity = new ProjectAdded(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity._name = event.params._name
-  entity.serieId = event.params.serieId
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  /*let project = new Project(event.transaction.hash)
+  project.name = event.params._name
+  project.active = true
+  const serie = Serie.load()
+  project.serie = 
+  */
 }
 
 export function handleProjectDisabled(event: ProjectDisabledEvent): void {
@@ -97,22 +113,6 @@ export function handleResiTokenSet(event: ResiTokenSetEvent): void {
 export function handleSerieClosed(event: SerieClosedEvent): void {
   let entity = new SerieClosed(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._id = event.params._id
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSerieCreated(event: SerieCreatedEvent): void {
-  let entity = new SerieCreated(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity._id = event.params._id
-  entity._startDate = event.params._startDate
-  entity._endDate = event.params._endDate
-  entity._numberOfProjects = event.params._numberOfProjects
-  entity._maxSupply = event.params._maxSupply
-  entity._vault = event.params._vault
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
