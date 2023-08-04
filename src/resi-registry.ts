@@ -1,4 +1,5 @@
 import {BigInt} from '@graphprotocol/graph-ts'
+import {ethers} from 'ethers'
 import {
   Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
@@ -16,12 +17,10 @@ import {
 import {
   Initialized,
   OwnershipTransferred,
-  ProjectAdded,
   ProjectDisabled,
   RegistryInitialized,
   ResiTokenSet,
   SerieClosed,
-  SerieCreated,
   SerieSBTSet,
   SerieSupplyUpdated,
   TreasuryVaultSet,
@@ -53,34 +52,8 @@ export function handleOwnershipTransferred(event: OwnershipTransferredEvent): vo
   entity.save()
 }
 
-export function handleSerieCreated(event: SerieCreatedEvent): void {
-  /*const serie = new Serie(event.transaction.hash)
-  serie.active = true
-  serie.created = true
-  serie.serieId = event.params._id
-  serie.startDate = event.params._startDate.toString()
-  serie.endDate = event.params._endDate.toString()
-  serie.currentProjects = 0
-  serie.numberOfProjects = 0
-  serie.currentSupply = new BigInt(0)
-  serie.maxSupply = event.params._maxSupply
-  serie.vault = event.params._vault
-
-  serie.save()*/
-}
-
-export function handleProjectAdded(event: ProjectAddedEvent): void {
-  /*let project = new Project(event.transaction.hash)
-  project.name = event.params._name
-  project.active = true
-  const serie = Serie.load()
-  project.serie = 
-  */
-}
-
-export function handleProjectDisabled(event: ProjectDisabledEvent): void {
-  let entity = new ProjectDisabled(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity._name = event.params._name
+export function handleRegistryInitialized(event: RegistryInitializedEvent): void {
+  let entity = new RegistryInitialized(event.transaction.hash.concatI32(event.logIndex.toI32()))
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -89,8 +62,34 @@ export function handleProjectDisabled(event: ProjectDisabledEvent): void {
   entity.save()
 }
 
-export function handleRegistryInitialized(event: RegistryInitializedEvent): void {
-  let entity = new RegistryInitialized(event.transaction.hash.concatI32(event.logIndex.toI32()))
+export function handleSerieCreated(event: SerieCreatedEvent): void {
+  const serie = new Serie(event.params._id.toString())
+  serie.active = true
+  serie.created = true
+  serie.startDate = event.params._startDate.toString()
+  serie.endDate = event.params._endDate.toString()
+  serie.currentProjects = 0
+  serie.numberOfProjects = 0
+  serie.currentSupply = new BigInt(0)
+  serie.maxSupply = event.params._maxSupply
+  serie.vault = event.params._vault
+
+  serie.save()
+}
+
+export function handleProjectAdded(event: ProjectAddedEvent): void {
+  const serie = Serie.load(event.params.serieId.toString())
+  if (serie) {
+    let project = new Project(event.transaction.hash)
+    project.name = ethers.decodeBytes32String(event.params._name)
+    project.active = true
+    project.save()
+  }
+}
+
+export function handleProjectDisabled(event: ProjectDisabledEvent): void {
+  let entity = new ProjectDisabled(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  entity._name = event.params._name
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
