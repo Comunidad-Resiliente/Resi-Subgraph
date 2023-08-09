@@ -80,22 +80,30 @@ export function handleSerieCreated(event: SerieCreatedEvent): void {
 export function handleProjectAdded(event: ProjectAddedEvent): void {
   const serie = Serie.load(event.params.serieId.toString())
   if (serie) {
-    let project = new Project(event.transaction.hash)
+    let project = new Project(event.params._name)
     project.name = ethers.decodeBytes32String(event.params._name)
     project.active = true
+
+    serie.currentProjects++
+
     project.save()
+    serie.save()
   }
 }
 
 export function handleProjectDisabled(event: ProjectDisabledEvent): void {
-  let entity = new ProjectDisabled(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity._name = event.params._name
+  const project = Project.load(event.params._name)
+  if (project) {
+    project.active = false
+    project.save()
+  }
+}
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+export function handleSerieSBTSet(event: SerieSBTSetEvent): void {
+  // const serie = Serie.load(event.params.activeSerieId.toString())
+  // if(serie){
+  //
+  // }
 }
 
 export function handleResiTokenSet(event: ResiTokenSetEvent): void {
@@ -112,18 +120,6 @@ export function handleResiTokenSet(event: ResiTokenSetEvent): void {
 export function handleSerieClosed(event: SerieClosedEvent): void {
   let entity = new SerieClosed(event.transaction.hash.concatI32(event.logIndex.toI32()))
   entity._id = event.params._id
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSerieSBTSet(event: SerieSBTSetEvent): void {
-  let entity = new SerieSBTSet(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity.activeSerieId = event.params.activeSerieId
-  entity._sbt = event.params._sbt
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

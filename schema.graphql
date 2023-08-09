@@ -426,6 +426,7 @@ type Serie @entity(immutable: false){
   currentSupply: BigInt!
   maxSupply: BigInt!
   vault: Vault
+  sbt: SBT
   projects: [Project!]! @derivedFrom(field: "serie")
 }
 
@@ -450,3 +451,7 @@ type Vault @entity(immutable: false){
   resiRegistry: String!
 }
 
+type SBT @entity(immutable: false){
+  id: Bytes!
+  serie: Int!
+}
